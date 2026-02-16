@@ -1,0 +1,41 @@
+/* ===== Loading Indicator (Claude 스타일 오렌지 스피너) ===== */
+
+.loading-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  animation: spinnerRotate 1.2s linear infinite;
+}
+
+.loading-spinner__line {
+  position: absolute;
+  width: 2.5px;
+  height: 7px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  top: 0;
+  left: 50%;
+  transform-origin: 50% 12px;
+  opacity: 0.15;
+}
+
+.loading-spinner__line:nth-child(1) { transform: translateX(-50%) rotate(0deg); opacity: 1; }
+.loading-spinner__line:nth-child(2) { transform: translateX(-50%) rotate(45deg); opacity: 0.85; }
+.loading-spinner__line:nth-child(3) { transform: translateX(-50%) rotate(90deg); opacity: 0.7; }
+.loading-spinner__line:nth-child(4) { transform: translateX(-50%) rotate(135deg); opacity: 0.55; }
+.loading-spinner__line:nth-child(5) { transform: translateX(-50%) rotate(180deg); opacity: 0.4; }
+.loading-spinner__line:nth-child(6) { transform: translateX(-50%) rotate(225deg); opacity: 0.3; }
+.loading-spinner__line:nth-child(7) { transform: translateX(-50%) rotate(270deg); opacity: 0.2; }
+.loading-spinner__line:nth-child(8) { transform: translateX(-50%) rotate(315deg); opacity: 0.15; }
+
+@keyframes spinnerRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

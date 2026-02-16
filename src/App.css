@@ -1,0 +1,59 @@
+/* ===== App Layout ===== */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 메인 영역: 채팅 + 그래프 패널 */
+.app__main {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 채팅 영역 래퍼 — 그래프 패널과 무관하게 항상 전체 너비 */
+.app__chat-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* 하단 영역 */
+.app__bottom {
+  flex-shrink: 0;
+}
+
+/* 에러 토스트 */
+.app__error-toast {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #D32F2F;
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  animation: fadeInUp var(--transition-normal) ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+

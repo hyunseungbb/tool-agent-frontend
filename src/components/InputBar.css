@@ -1,0 +1,91 @@
+/* ===== Input Bar ===== */
+
+.input-bar {
+  padding: 12px 16px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.input-bar__container {
+  max-width: var(--input-max-width);
+  width: 100%;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow var(--transition-fast);
+}
+
+.input-bar__container:focus-within {
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.input-bar__textarea {
+  width: 100%;
+  padding: 16px 20px 8px;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  resize: none;
+  min-height: 24px;
+  max-height: 160px;
+  background: transparent;
+}
+
+.input-bar__textarea::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.input-bar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 12px 12px;
+  gap: 8px;
+}
+
+.input-bar__send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-text);
+  color: var(--color-white);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.input-bar__send-btn:hover {
+  opacity: 0.85;
+}
+
+.input-bar__send-btn:active {
+  transform: scale(0.95);
+}
+
+.input-bar__send-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.input-bar__send-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* 하단 면책 조항 */
+.input-bar__disclaimer {
+  text-align: center;
+  padding: 8px 16px 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+

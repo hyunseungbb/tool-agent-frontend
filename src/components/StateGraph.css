@@ -1,0 +1,177 @@
+/* ===== State Graph Panel (오버레이, 채팅 영역 위에 겹침) ===== */
+
+.state-graph-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background-color: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+  z-index: 10;
+  animation: slideIn var(--transition-normal) ease-out;
+  display: flex;
+  flex-direction: column;
+  transition: width var(--transition-normal);
+}
+
+/* 접힌 상태 */
+.state-graph-panel--collapsed {
+  width: 44px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== Header ===== */
+
+.state-graph-panel__header {
+  padding: 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.state-graph-panel--collapsed .state-graph-panel__header {
+  justify-content: center;
+  padding: 12px 0;
+  border-bottom: none;
+}
+
+.state-graph-panel__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.state-graph-panel--collapsed .state-graph-panel__title {
+  display: none;
+}
+
+/* ===== Toggle Button ===== */
+
+.state-graph-panel__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.state-graph-panel__toggle:hover {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.state-graph-panel__toggle-icon {
+  transition: transform var(--transition-normal);
+}
+
+/* 접힌 상태: 화살표 왼쪽 방향 (패널 열기) */
+.state-graph-panel__toggle-icon--collapsed {
+  transform: rotate(180deg);
+}
+
+/* ===== Body ===== */
+
+.state-graph-panel__body {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ===== React Flow Custom Nodes ===== */
+
+.react-flow__background {
+  background-color: var(--color-bg) !important;
+}
+
+.graph-node {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  font-size: 0.7rem;
+  min-width: 100px;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.graph-node__label {
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--color-text);
+  margin-bottom: 1px;
+}
+
+.graph-node__detail {
+  font-size: 0.6rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+/* 활성 노드 */
+.graph-node--active {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-light);
+}
+
+.graph-node--active .graph-node__label {
+  color: var(--color-accent);
+}
+
+/* 완료된 노드 */
+.graph-node--done {
+  opacity: 0.7;
+}
+
+/* 에지 스타일 */
+.react-flow__edge-path {
+  stroke: var(--color-accent) !important;
+  stroke-width: 1.5 !important;
+}
+
+.react-flow__handle {
+  background-color: var(--color-accent) !important;
+  border: none !important;
+  width: 5px !important;
+  height: 5px !important;
+}
+
+/* React Flow 기본 UI 숨기기 */
+.react-flow__attribution {
+  display: none !important;
+}
+
+.react-flow__controls {
+  display: none !important;
+}
+
+.react-flow__minimap {
+  display: none !important;
+}
