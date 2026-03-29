@@ -4,6 +4,7 @@ import { useAgentSSE } from './hooks/useAgentSSE';
 import ChatArea from './components/ChatArea';
 import InputBar from './components/InputBar';
 import StateGraph from './components/StateGraph';
+import LoginPage from './components/LoginPage';
 import './App.css';
 
 let messageIdCounter = 0;
@@ -12,8 +13,9 @@ function generateId(): string {
 }
 
 export default function App() {
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('auth_token'));
   const [messages, setMessages] = useState<Message[]>([]);
-  const { state: sseState, send } = useAgentSSE();
+  const { state: sseState, send } = useAgentSSE(token);
 
   // 그래프 패널: step이 한 번이라도 오면 표시, 이후 계속 유지
   const [hasSteps, setHasSteps] = useState(false);
@@ -117,6 +119,15 @@ export default function App() {
     return msg;
   });
 
+  if (!token) {
+    return <LoginPage onLogin={setToken} />;
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('auth_token');
+    setToken(null);
+  };
+
   return (
     <div className="app">
       <div className="app__main">
@@ -137,6 +148,22 @@ export default function App() {
       <div className="app__bottom">
         <InputBar onSend={handleSend} disabled={isProcessing} />
       </div>
+
+      <button
+        onClick={handleLogout}
+        style={{
+          position: 'fixed', top: '12px', right: '16px',
+          padding: '4px 12px',
+          fontSize: 'var(--font-size-sm)',
+          background: 'transparent',
+          border: '1px solid var(--color-border)',
+          borderRadius: 'var(--radius-sm)',
+          cursor: 'pointer',
+          color: 'var(--color-text-secondary)',
+        }}
+      >
+        로그아웃
+      </button>
 
       {sseState.status === 'error' && sseState.error && (
         <div className="app__error-toast">{sseState.error}</div>

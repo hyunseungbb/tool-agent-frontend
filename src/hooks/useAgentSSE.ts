@@ -18,9 +18,11 @@ const initialState: AgentSSEState = {
   runId: null,
 };
 
-export function useAgentSSE() {
+export function useAgentSSE(token: string | null = null) {
   const [state, setState] = useState<AgentSSEState>(initialState);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const tokenRef = useRef(token);
+  tokenRef.current = token;
 
   const reset = useCallback(() => {
     setState(initialState);
@@ -44,15 +46,26 @@ export function useAgentSSE() {
     });
 
     try {
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Accept': 'text/event-stream',
+      };
+      if (tokenRef.current) {
+        headers['Authorization'] = `Bearer ${tokenRef.current}`;
+      }
+
       const response = await fetch(`${API_BASE_URL}/agent/run`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'text/event-stream',
-        },
+        headers,
         body: JSON.stringify({ message }),
         signal: abortController.signal,
       });
+
+      if (response.status === 401) {
+        localStorage.removeItem('auth_token');
+        window.location.reload();
+        return;
+      }
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
